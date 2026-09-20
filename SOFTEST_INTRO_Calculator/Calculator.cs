@@ -128,13 +128,10 @@ public class Calculator
         {
 
             "a" => Add(a, b),
-
             "s" => Subtract(a, b),
-
             "m" => Multiply(a, b),
-
             "d" => Divide(a, b),
-
+            "f" => Factorial((int)a),
             _ => throw new ArgumentException("Unknown operation.")
 
         };

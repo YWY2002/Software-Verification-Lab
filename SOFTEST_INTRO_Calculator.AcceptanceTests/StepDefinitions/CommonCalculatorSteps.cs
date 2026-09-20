@@ -25,6 +25,7 @@ public sealed class CommonCalculatorSteps
     [Then("the result should be {double}")]
     public void ThenTheResultShouldBe(double expected)
     {
+        Assert.That(_context.Error, Is.Null);
         Assert.That(_context.Result, Is.EqualTo(expected).Within(1e-9));
     }
 
@@ -32,5 +33,18 @@ public sealed class CommonCalculatorSteps
     public void ThenDivisionShouldBeRejected()
     {
         Assert.That(_context.Error, Is.TypeOf<ArgumentException>());
+    }
+
+    [Then("the integer result should be {long}")]
+    public void ThenTheIntegerResultShouldBe(long expected)
+    {
+        Assert.That(_context.Error, Is.Null);
+        Assert.That(_context.IntegerResult, Is.EqualTo(expected));
+    }
+
+    [Then("factorial should be rejected")]
+    public void ThenFactorialShouldBeRejected()
+    {
+        Assert.That(_context.Error, Is.TypeOf<ArgumentOutOfRangeException>());
     }
 }
