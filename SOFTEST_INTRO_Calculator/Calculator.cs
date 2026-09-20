@@ -121,6 +121,31 @@ public class Calculator
         return Factorial(n) / Factorial(n - r);
     }
 
+    public double MtbfFunction(double operating_time, double num_failures)
+    {
+        if (operating_time < 0 || num_failures <= 0)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+        double res = operating_time / num_failures;
+        return res;
+    }
+
+    public double AvailabilityFunction(double mtbf, double mttr)
+    {
+        if (mtbf < 0 || mttr < 0)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+        if (mtbf + mttr == 0)
+        {
+            throw new ArgumentException();
+        }
+        double res = mtbf / (mtbf + mttr);
+        return res;
+    }
+
+
     public double DoOperation(double a, double b, string op)
     {
 
