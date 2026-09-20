@@ -31,6 +31,34 @@ Scenario: Calculating Availability from named reliability values
 Given I have a calculator
 And the reliability values are
 | MTBF | MTTR |
-|90 |10| 
+|90 |10|
 When I calculate Availability from these values
 Then the result should be 0.9
+
+Scenario Outline: Reject MTBF for negative operating time or non-positive failures
+Given I have a calculator
+When I have entered <operating time> and <number of failures> into the calculator and press MTBF
+Then MTBF should be rejected
+Examples:
+| operating time | number of failures |
+| -1 | 2 |
+| -3600 | 5 |
+| 3600 | 0 |
+| 3600 | -2 |
+| -100 | 0 |
+
+Scenario Outline: Reject Availability for negative MTBF or MTTR
+Given I have a calculator
+When I have entered <mtbf> and <mttr> into the calculator and press Availability
+Then availability should be rejected
+Examples:
+| mtbf | mttr |
+| -1 | 10 |
+| 10 | -1 |
+| -5 | -5 |
+| -0.2 | 0 |
+
+Scenario: Reject Availability when MTBF and MTTR are both zero
+Given I have a calculator
+When I have entered 0 and 0 into the calculator and press Availability
+Then availability should be undefined

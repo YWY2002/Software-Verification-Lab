@@ -47,4 +47,22 @@ public sealed class CommonCalculatorSteps
     {
         Assert.That(_context.Error, Is.TypeOf<ArgumentOutOfRangeException>());
     }
+
+    [Then("MTBF should be rejected")]
+    public void ThenMtbfShouldBeRejected()
+    {
+        Assert.That(_context.Error, Is.TypeOf<ArgumentOutOfRangeException>());
+    }
+
+    [Then("availability should be rejected")]
+    public void ThenAvailabilityShouldBeRejected()
+    {
+        Assert.That(_context.Error, Is.TypeOf<ArgumentOutOfRangeException>());
+    }
+
+    [Then("availability should be undefined")]
+    public void ThenAvailabilityShouldBeUndefined()
+    {
+        Assert.That(_context.Error, Is.TypeOf<ArgumentException>());
+    }
 }

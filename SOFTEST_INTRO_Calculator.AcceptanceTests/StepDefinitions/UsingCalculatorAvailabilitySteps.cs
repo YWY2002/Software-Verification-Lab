@@ -20,12 +20,13 @@ public sealed class UsingCalculatorAvailabilitySteps
         try
         {
             _context.Result = _context.Calculator.MtbfFunction(operating_time, num_failures);
+            _reliability.Mtbf = _context.Result;
         }
         catch (Exception error)
         {
+            _context.Result = null;
             _context.Error = error;
         }
-        _reliability.Mtbf = _context.Result;
     }
 
     [When("I have entered {double} and {double} into the calculator and press Availability")]
@@ -40,6 +41,7 @@ public sealed class UsingCalculatorAvailabilitySteps
         }
         catch (Exception error)
         {
+            _context.Result = null;
             _context.Error = error;
         }
     }
