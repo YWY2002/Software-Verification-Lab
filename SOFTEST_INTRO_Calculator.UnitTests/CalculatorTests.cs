@@ -132,32 +132,107 @@ public class CalculatorTests
         Assert.That(() => _calculator.CircleArea(a), Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
-    // [TestCase(-4, 5)]
-    // [TestCase(4, 5)]
-    // [TestCase(6, 21)]
-    // public void UnknowFunction_ValueConstriant_ThrowsArgumentOutOfRangeException(int n, int r)
-    // {
-    //     Assert.That(() => _calculator.UnknownFunctionA(n, r), Throws.TypeOf<ArgumentOutOfRangeException>());
-    //     Assert.That(() => _calculator.UnknownFunctionB(n, r), Throws.TypeOf<ArgumentOutOfRangeException>());
-    // }
-    
-    // [TestCase(5, 5, 120)]
-    // [TestCase(5, 4, 120)]
-    // [TestCase(5, 3, 60)]
-    // [TestCase(5, 0, 1)]
-    // [TestCase(0, 0, 1)]
-    // public void UnknowFunctionA_Inputs_ReturnValue(int n, int r, double expected)
-    // {
-    //     Assert.That(_calculator.UnknownFunctionA(n, r), Is.EqualTo(expected).Within(1e-6));
-    // }
+    [TestCase(3600, 2, 1800)]
+    [TestCase(10, 10, 1)]
+    [TestCase(4, 5, 0.8)]
+    public void Mtbf_Inputs_ReturnMtbf(double operatingTime, double numFailures, double expected)
+    {
+        Assert.That(_calculator.MtbfFunction(operatingTime, numFailures), Is.EqualTo(expected).Within(1e-9));
+    }
 
-    // [TestCase(5, 5, 1)]
-    // [TestCase(5, 4, 5)]
-    // [TestCase(5, 3, 10)]
-    // [TestCase(5, 0, 1)]
-    // [TestCase(0, 0, 1)]
-    // public void UnknowFunctionB_Inputs_ReturnValue(int n, int r, double expected)
-    // {
-    //     Assert.That(_calculator.UnknownFunctionB(n, r), Is.EqualTo(expected).Within(1e-6));
-    // }
+    [TestCase(-1, 2)]
+    [TestCase(3600, 0)]
+    [TestCase(3600, -2)]
+    public void Mtbf_NegativeTimeOrNonPositiveFailures_ThrowsArgumentOutOfRangeException(double operatingTime, double numFailures)
+    {
+        Assert.That(() => _calculator.MtbfFunction(operatingTime, numFailures), Throws.TypeOf<ArgumentOutOfRangeException>());
+    }
+
+    [TestCase(800, 2400, 0.25)]
+    [TestCase(90, 10, 0.9)]
+    [TestCase(0, 10, 0)]
+    [TestCase(10, 0, 1)]
+    public void Availability_Inputs_ReturnRatio(double mtbf, double mttr, double expected)
+    {
+        Assert.That(_calculator.AvailabilityFunction(mtbf, mttr), Is.EqualTo(expected).Within(1e-9));
+    }
+
+    [TestCase(-1, 10)]
+    [TestCase(10, -1)]
+    [TestCase(-5, -5)]
+    public void Availability_NegativeInput_ThrowsArgumentOutOfRangeException(double mtbf, double mttr)
+    {
+        Assert.That(() => _calculator.AvailabilityFunction(mtbf, mttr), Throws.TypeOf<ArgumentOutOfRangeException>());
+    }
+
+    [Test]
+    public void Availability_BothZero_ThrowsArgumentException()
+    {
+        Assert.That(() => _calculator.AvailabilityFunction(0, 0), Throws.TypeOf<ArgumentException>());
+    }
+
+    [TestCase(10, 100, 0, 10)]
+    [TestCase(10, 100, 10, 3.6787944117)]
+    [TestCase(5, 100, 40, 0.6766764162)]
+    public void MusaFailureIntensity_Inputs_ReturnIntensity(double lambda0, double v0, double tau, double expected)
+    {
+        Assert.That(_calculator.MusaFailureIntensityFunction(lambda0, v0, tau), Is.EqualTo(expected).Within(1e-9));
+    }
+
+    [TestCase(10, 100, 0, 0)]
+    [TestCase(10, 100, 10, 63.212055883)]
+    [TestCase(5, 100, 40, 86.466471677)]
+    public void MusaCumulativeFailures_Inputs_ReturnFailures(double lambda0, double v0, double tau, double expected)
+    {
+        Assert.That(_calculator.MusaCumulativeFailuresFunction(lambda0, v0, tau), Is.EqualTo(expected).Within(1e-9));
+    }
+
+    [TestCase(0, 100, 10)]
+    [TestCase(-1, 100, 10)]
+    [TestCase(10, 0, 10)]
+    [TestCase(10, -1, 10)]
+    [TestCase(10, 100, -1)]
+    public void MusaFailureIntensity_InvalidInput_ThrowsArgumentOutOfRangeException(double lambda0, double v0, double tau)
+    {
+        Assert.That(() => _calculator.MusaFailureIntensityFunction(lambda0, v0, tau), Throws.TypeOf<ArgumentOutOfRangeException>());
+    }
+
+    [TestCase(0, 100, 10)]
+    [TestCase(-1, 100, 10)]
+    [TestCase(10, 0, 10)]
+    [TestCase(10, -1, 10)]
+    [TestCase(10, 100, -1)]
+    public void MusaCumulativeFailures_InvalidInput_ThrowsArgumentOutOfRangeException(double lambda0, double v0, double tau)
+    {
+        Assert.That(() => _calculator.MusaCumulativeFailuresFunction(lambda0, v0, tau), Throws.TypeOf<ArgumentOutOfRangeException>());
+    }
+
+    [TestCase(-4, 5)]
+    [TestCase(4, 5)]
+    [TestCase(6, 21)]
+    public void UnknowFunction_ValueConstriant_ThrowsArgumentOutOfRangeException(int n, int r)
+    {
+        Assert.That(() => _calculator.UnknownFunctionA(n, r), Throws.TypeOf<ArgumentOutOfRangeException>());
+        Assert.That(() => _calculator.UnknownFunctionB(n, r), Throws.TypeOf<ArgumentOutOfRangeException>());
+    }
+    
+    [TestCase(5, 5, 120)]
+    [TestCase(5, 4, 120)]
+    [TestCase(5, 3, 60)]
+    [TestCase(5, 0, 1)]
+    [TestCase(0, 0, 1)]
+    public void UnknowFunctionA_Inputs_ReturnValue(int n, int r, double expected)
+    {
+        Assert.That(_calculator.UnknownFunctionA(n, r), Is.EqualTo(expected).Within(1e-6));
+    }
+
+    [TestCase(5, 5, 1)]
+    [TestCase(5, 4, 5)]
+    [TestCase(5, 3, 10)]
+    [TestCase(5, 0, 1)]
+    [TestCase(0, 0, 1)]
+    public void UnknowFunctionB_Inputs_ReturnValue(int n, int r, double expected)
+    {
+        Assert.That(_calculator.UnknownFunctionB(n, r), Is.EqualTo(expected).Within(1e-6));
+    }
 }

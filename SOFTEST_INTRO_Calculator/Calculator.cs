@@ -145,6 +145,25 @@ public class Calculator
         return res;
     }
 
+    public double MusaFailureIntensityFunction(double lambda0, double v0, double tau)
+    {
+        if (lambda0 <= 0 || v0 <= 0 || tau < 0)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+        double res = lambda0 * Math.Exp(-lambda0 * tau / v0);
+        return res;
+    }
+
+    public double MusaCumulativeFailuresFunction(double lambda0, double v0, double tau)
+    {
+        if (lambda0 <= 0 || v0 <= 0 || tau < 0)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+        double res = v0 * (1 - Math.Exp(-lambda0 * tau / v0));
+        return res;
+    }
 
     public double DoOperation(double a, double b, string op)
     {
@@ -160,7 +179,5 @@ public class Calculator
             _ => throw new ArgumentException("Unknown operation.")
 
         };
-
     }
-
 }

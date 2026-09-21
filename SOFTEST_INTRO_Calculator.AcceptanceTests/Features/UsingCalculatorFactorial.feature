@@ -19,7 +19,6 @@ Scenario Outline: Reject number that is negative or more than 20
 Given I have a calculator
 When I have entered <int> and press factorial
 Then factorial should be rejected
-
 Examples:
 | int |
 | -1|
