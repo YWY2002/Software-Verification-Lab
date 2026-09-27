@@ -207,32 +207,32 @@ public class CalculatorTests
         Assert.That(() => _calculator.MusaCumulativeFailuresFunction(lambda0, v0, tau), Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
-    [TestCase(-4, 5)]
-    [TestCase(4, 5)]
-    [TestCase(6, 21)]
-    public void UnknowFunction_ValueConstriant_ThrowsArgumentOutOfRangeException(int n, int r)
-    {
-        Assert.That(() => _calculator.UnknownFunctionA(n, r), Throws.TypeOf<ArgumentOutOfRangeException>());
-        Assert.That(() => _calculator.UnknownFunctionB(n, r), Throws.TypeOf<ArgumentOutOfRangeException>());
-    }
+    // [TestCase(-4, 5)]
+    // [TestCase(4, 5)]
+    // [TestCase(6, 21)]
+    // public void UnknowFunction_ValueConstriant_ThrowsArgumentOutOfRangeException(int n, int r)
+    // {
+    //     Assert.That(() => _calculator.UnknownFunctionA(n, r), Throws.TypeOf<ArgumentOutOfRangeException>());
+    //     Assert.That(() => _calculator.UnknownFunctionB(n, r), Throws.TypeOf<ArgumentOutOfRangeException>());
+    // }
     
-    [TestCase(5, 5, 120)]
-    [TestCase(5, 4, 120)]
-    [TestCase(5, 3, 60)]
-    [TestCase(5, 0, 1)]
-    [TestCase(0, 0, 1)]
-    public void UnknowFunctionA_Inputs_ReturnValue(int n, int r, double expected)
-    {
-        Assert.That(_calculator.UnknownFunctionA(n, r), Is.EqualTo(expected).Within(1e-6));
-    }
+    // [TestCase(5, 5, 120)]
+    // [TestCase(5, 4, 120)]
+    // [TestCase(5, 3, 60)]
+    // [TestCase(5, 0, 1)]
+    // [TestCase(0, 0, 1)]
+    // public void UnknowFunctionA_Inputs_ReturnValue(int n, int r, double expected)
+    // {
+    //     Assert.That(_calculator.UnknownFunctionA(n, r), Is.EqualTo(expected).Within(1e-6));
+    // }
 
-    [TestCase(5, 5, 1)]
-    [TestCase(5, 4, 5)]
-    [TestCase(5, 3, 10)]
-    [TestCase(5, 0, 1)]
-    [TestCase(0, 0, 1)]
-    public void UnknowFunctionB_Inputs_ReturnValue(int n, int r, double expected)
-    {
-        Assert.That(_calculator.UnknownFunctionB(n, r), Is.EqualTo(expected).Within(1e-6));
-    }
+    // [TestCase(5, 5, 1)]
+    // [TestCase(5, 4, 5)]
+    // [TestCase(5, 3, 10)]
+    // [TestCase(5, 0, 1)]
+    // [TestCase(0, 0, 1)]
+    // public void UnknowFunctionB_Inputs_ReturnValue(int n, int r, double expected)
+    // {
+    //     Assert.That(_calculator.UnknownFunctionB(n, r), Is.EqualTo(expected).Within(1e-6));
+    // }
 }

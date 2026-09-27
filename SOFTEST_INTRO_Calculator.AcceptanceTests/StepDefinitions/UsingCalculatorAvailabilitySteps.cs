@@ -5,6 +5,7 @@ namespace SOFTEST_INTRO_Calculator.AcceptanceTests.StepDefinitions;
 [Binding]
 public sealed class UsingCalculatorAvailabilitySteps
 {
+    // readonly: disallow reassignment of variable
     private readonly CalculatorContext _context;
     private readonly ReliabilityContext _reliability;
     public UsingCalculatorAvailabilitySteps(CalculatorContext context, ReliabilityContext reliability)
