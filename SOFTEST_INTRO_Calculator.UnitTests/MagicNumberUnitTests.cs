@@ -15,7 +15,7 @@ public sealed class MagicNumberUnitTests
     {
         _calculator = new Calculator();
         _fileReader = new Mock<IFileReader>();
-        _fileReader.Setup(reader => reader.Read("MagicNumbers.txt")).Returns(new[] { "42", "7" });
+        _fileReader.Setup(reader => reader.Read("MagicNumbers.txt")).Returns(new[] { "42", "-7" });
     }
 
     [TestCase(0, 84)]

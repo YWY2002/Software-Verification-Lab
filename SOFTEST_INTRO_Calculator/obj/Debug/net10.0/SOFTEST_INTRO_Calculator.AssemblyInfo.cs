@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SOFTEST_INTRO_Calculator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a27ef295608fdae5a47fc059fc4cef79baa0d37b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+14cb9747a0421354427b0e94b205e3acd5c83b25")]
 [assembly: System.Reflection.AssemblyProductAttribute("SOFTEST_INTRO_Calculator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SOFTEST_INTRO_Calculator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
