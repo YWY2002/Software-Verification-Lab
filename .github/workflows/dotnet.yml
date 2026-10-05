@@ -46,30 +46,30 @@ jobs:
           ASPNETCORE_URLS: http://127.0.0.1:5074
 
         run: |
-        dotnet run \
-        --project SOFTEST_INTRO_Calculator.Web \
-        --configuration Release --no-build \
-        --no-launch-profile \
-        > calculator-web.log 2>&1 &
+          dotnet run \
+          --project SOFTEST_INTRO_Calculator.Web \
+          --configuration Release --no-build \
+          --no-launch-profile \
+          > calculator-web.log 2>&1 &
 
-        web_pid=$!
-        trap 'kill "$web_pid" 2>/dev/null || true' EXIT
+          web_pid=$!
+          trap 'kill "$web_pid" 2>/dev/null || true' EXIT
 
-        for attempt in {1..30}; do
-          if curl--fail--silent \
-            "$SOFTEST_INTRO_BASE_URL" > /dev/null; then
-            break
-          fi
+          for attempt in {1..30}; do
+            if curl--fail--silent \
+              "$SOFTEST_INTRO_BASE_URL" > /dev/null; then
+              break
+            fi
 
-          if [ "$attempt"-eq 30 ]; then
-            cat calculator-web.log
-            exit 1
-          fi
+            if [ "$attempt"-eq 30 ]; then
+              cat calculator-web.log
+              exit 1
+            fi
 
-          sleep 1
-        done
+            sleep 1
+          done
 
-        dotnet test \
-        SOFTEST_INTRO_Calculator.WebUiTests \
-        --configuration Release --no-build \
-        --verbosity normal
+          dotnet test \
+          SOFTEST_INTRO_Calculator.WebUiTests \
+          --configuration Release --no-build \
+          --verbosity normal
